@@ -5,8 +5,8 @@ requires 'Carp';
 requires 'Try::Tiny';
 
 # for test
-
 on test => sub {
+    requires 'Data::Dumper';
     requires 'Test::More';
     requires 'Test2::V0';
     requires 'Test2::Plugin::UTF8';
