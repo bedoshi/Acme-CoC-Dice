@@ -1,7 +1,15 @@
-requires 'perl', '5.008005';
+requires 'perl', '5.32.0';
 
-# requires 'Some::Module', 'VERSION';
+# for exception
+requires 'Carp';
+requires 'Try::Tiny';
+
+# for test
 
 on test => sub {
-    requires 'Test::More', '0.96';
+    requires 'Test::More';
+    requires 'Test2::V0';
+    requires 'Test2::Plugin::UTF8';
+    requires 'Test::Deep';
+    requires 'Module::Spy';
 };
