@@ -57,14 +57,33 @@ Acme::CoC::Dice - Dice role module for CoC TRPG.
 
   use Acme::CoC::Dice;
 
+  my $dice_role = Acme::CoC::Dice->role('1d100');
+  print $dice_role->{dices}; # this property can have some result with giving parameter as '2d6'.
+  print $dice_role->{sum};
+
 =head1 DESCRIPTION
 
 Acme::CoC::Dice is getting random number like 1d100.
 
+=head1 METHODS
+
+=head2 C<< role >>
+
+Gets random number like dice roling.
+Format is "ndm" ("n" and "m" is Natural number). For example, it's like "1d6".
+
+    my $result = Acme::CoC::Dice->role('1d6);
+
+=head2 C<< role_skill >>
+
+Runs "role" with giving "1d100". Usually we can play dice as "1d100" for using skill on CoC-TRPG.
+This method is for it.
+
+    my $result = Acme::CoC::Dice->role_skill;
 
 =head1 AUTHOR
 
-bedoshi E<lt>bedoshidiary.ester.freesia@gmail.comE<gt>
+bedoshi
 
 =head1 COPYRIGHT
 
