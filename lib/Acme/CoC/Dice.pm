@@ -7,11 +7,15 @@ use utf8;
 use Acme::CoC::Util;
 
 use Carp qw/croak/;
+use Smart::Args;
 
 our $VERSION = '0.02';
 
 sub role {
-    my ($self, $command) = @_;
+    args_pos
+        my $self,
+        my $command,
+    ;
 
     # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
     return $self->role_skill if is_ccb($command);
@@ -41,7 +45,9 @@ sub role {
 }
 
 sub role_skill {
-    my ($self) = @_;
+    args_pos
+        my $self,
+    ;
 
     return $self->role('1d100');
 }
