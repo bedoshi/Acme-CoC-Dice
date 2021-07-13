@@ -1,4 +1,6 @@
 requires 'perl', '5.32.0';
+requires 'Smart::Args';
+requires 'Exporter::Constants';
 
 # for exception
 requires 'Carp';
