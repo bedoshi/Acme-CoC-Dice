@@ -18,4 +18,11 @@ subtest 'is_ccb' => sub {
     ok !is_ccb('test');
 };
 
+subtest 'get_target' => sub {
+    ok !get_target('skill');
+    ok !get_target('1d100');
+    is get_target('cc 100'), 100;
+    is get_target('ccb 55'), 55;
+};
+
 done_testing;

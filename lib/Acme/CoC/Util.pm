@@ -10,6 +10,7 @@ use Moose;
 our @EXPORT = qw/
     eq_any
     is_ccb
+    get_target
 /;
 
 sub eq_any {
@@ -24,4 +25,9 @@ sub is_ccb {
     return $command =~ /skill|ccb|cc/;
 }
 
+sub get_target {
+    my ($command) = @_;
+    $command =~ /(cc|ccb) ([1-9][0-9]*)/;
+    return $2;
+}
 1;
