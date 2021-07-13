@@ -11,6 +11,9 @@ our @EXPORT = qw/
     eq_any
     is_ccb
     get_target
+    is_extream
+    is_hard
+    is_failed
 /;
 
 sub eq_any {
@@ -30,4 +33,22 @@ sub get_target {
     $command =~ /(cc|ccb) ([1-9][0-9]*)/;
     return $2;
 }
+
+sub is_extream {
+    my ($dice, $target) = @_;
+    my $rate = sprintf("%.5g", ($dice / $target));
+    return $rate <= 0.20000;
+}
+
+sub is_hard {
+    my ($dice, $target) = @_;
+    my $rate = sprintf("%.5g", ($dice / $target));
+    return $rate <= 0.50000;
+}
+
+sub is_failed {
+    my ($dice, $target) = @_;
+    return $dice > $target;
+}
+
 1;
