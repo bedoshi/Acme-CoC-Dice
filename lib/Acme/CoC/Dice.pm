@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use utf8;
 
+use Acme::CoC::Util;
+
 use Carp qw/croak/;
 
 our $VERSION = '0.02';
@@ -12,7 +14,7 @@ sub role {
     my ($self, $command) = @_;
 
     # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
-    return $self->role_skill if $command =~ /^skill$/;
+    return $self->role_skill if is_ccb($command);
 
     $command =~ /([1-9][0-9]*)d([1-9][0-9]*)/;
     my $role_result = {
