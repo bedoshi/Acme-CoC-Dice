@@ -19,7 +19,7 @@ sub role {
     ;
 
     # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
-    return $self->role_skill if is_ccb($command);
+    return $self->role_skill(get_target($command)) if is_ccb($command);
 
     $command =~ /([1-9][0-9]*)d([1-9][0-9]*)/;
     my $role_result = {
@@ -48,9 +48,21 @@ sub role {
 sub role_skill {
     args_pos
         my $self,
+        my $target => {isa => 'Maybe[Int]', optional => 1},
     ;
-
-    return $self->role('1d100');
+    my $role = $self->role('1d100');
+    if (defined $target) {
+        if (is_extream($role->{dices}->[0], $target)) {
+            $role->{result} = 'extream success';
+        } elsif (is_hard($role->{dices}->[0], $target)) {
+            $role->{result} = 'hard success';
+        } elsif (is_failed($role->{dices}->[0], $target)) {
+            $role->{result} = 'failed';
+        } else {
+            $role->{result} = 'normal success';
+        }
+    }
+    return $role;
 }
 
 1;
@@ -89,6 +101,7 @@ Runs "role" with giving "1d100". Usually we can play dice as "1d100" for using s
 This method is for it.
 
     my $result = Acme::CoC::Dice->role_skill;
+    my $result = Acme::CoC::Dice->role_skill(50); ## 50 is given for success threshold.
 
 =head1 AUTHOR
 
