@@ -5,6 +5,7 @@ use warnings;
 use utf8;
 
 use Acme::CoC::Util;
+use Acme::CoC::Types;
 
 use Carp qw/croak/;
 use Smart::Args;
@@ -14,7 +15,7 @@ our $VERSION = '0.02';
 sub role {
     args_pos
         my $self,
-        my $command,
+        my $command => {isa => 'command'},
     ;
 
     # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
