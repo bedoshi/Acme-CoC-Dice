@@ -29,6 +29,7 @@ Runs "role" with giving "1d100". Usually we can play dice as "1d100" for using s
 This method is for it.
 
     my $result = Acme::CoC::Dice->role_skill;
+    my $result = Acme::CoC::Dice->role_skill(50); ## 50 is given for success threshold.
 
 # AUTHOR
 

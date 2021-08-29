@@ -1,4 +1,4 @@
-requires 'perl', '5.32.0';
+requires 'perl', '5.16.1';
 requires 'Smart::Args';
 requires 'Exporter::Constants';
 
