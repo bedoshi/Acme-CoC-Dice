@@ -10,7 +10,7 @@ use Acme::CoC::Types;
 use Carp qw/croak/;
 use Smart::Args;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub role {
     args_pos
