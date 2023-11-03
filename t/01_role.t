@@ -10,51 +10,51 @@ use Module::Spy;
 
 my $target = 'Acme::CoC::Dice';
 
-subtest '#role' => sub {
+subtest '#roll' => sub {
     subtest 'normal calling' => sub {
-        my $spy_role_skill = spy_on($target, 'role_skill')->and_call_through;
+        my $spy_roll_skill = spy_on($target, 'roll_skill')->and_call_through;
 
-        $spy_role_skill->calls_reset;
-        my $result = $target->role('1d100');
+        $spy_roll_skill->calls_reset;
+        my $result = $target->roll('1d100');
         is @{ $result->{dices} }, 1;
         for my $item (@{ $result->{dices} }) {
             ok $item >= 1 && $item <= 100, "1 <= result <= 100: $item";
-            ok !$spy_role_skill->called, 'role_skill was not called';
+            ok !$spy_roll_skill->called, 'roll_skill was not called';
         }
 
-        $spy_role_skill->calls_reset;
-        $result = $target->role('10d10');
+        $spy_roll_skill->calls_reset;
+        $result = $target->roll('10d10');
         is @{ $result->{dices} }, 10;
         for my $item (@{ $result->{dices} }) {
             ok $item >= 1 && $item <= 10, "1 <= result <= 10: $item";
-            ok !$spy_role_skill->called, 'role_skill was not called';
+            ok !$spy_roll_skill->called, 'roll_skill was not called';
         }
     };
 
     subtest 'ccb calling' => sub {
-        my $spy_role_skill = spy_on($target, 'role_skill')->and_call_through;
+        my $spy_roll_skill = spy_on($target, 'roll_skill')->and_call_through;
 
-        $spy_role_skill->calls_reset;
-        my $result = $target->role('skill');
+        $spy_roll_skill->calls_reset;
+        my $result = $target->roll('skill');
         is @{ $result->{dices} }, 1;
         for my $dice (@{ $result->{dices} }) {
-            ok $spy_role_skill, 'role_skill was called';
+            ok $spy_roll_skill, 'roll_skill was called';
         }
 
-        $spy_role_skill->calls_reset;
-        $result = $target->role('ccb 60');
+        $spy_roll_skill->calls_reset;
+        $result = $target->roll('ccb 60');
         is @{ $result->{dices} }, 1;
         for my $dice (@{ $result->{dices} }) {
-            ok $spy_role_skill, 'role_skill was called';
+            ok $spy_roll_skill, 'roll_skill was called';
         }
         ok $result->{result};
         ok eq_any($result->{result}, ['extream success', 'hard success', 'normal success', 'failed']);
 
-        $spy_role_skill->calls_reset;
-        $result = $target->role('cc 60');
+        $spy_roll_skill->calls_reset;
+        $result = $target->roll('cc 60');
         is @{ $result->{dices} }, 1;
         for my $dice (@{ $result->{dices} }) {
-            ok $spy_role_skill, 'role_skill was called';
+            ok $spy_roll_skill, 'roll_skill was called';
         }
         ok $result->{result};
         ok eq_any($result->{result}, ['extream success', 'hard success', 'normal success', 'failed']);
