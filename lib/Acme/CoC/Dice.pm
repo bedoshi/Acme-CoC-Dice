@@ -12,20 +12,20 @@ use Smart::Args;
 
 our $VERSION = '0.03';
 
-sub role {
+sub roll {
     args_pos
         my $self,
         my $command => {isa => 'command'},
     ;
 
     # MdN in $command can be separated to M/d/N, and M is the times of roling dice, N is the number of sided dice.
-    return $self->role_skill(get_target($command)) if is_ccb($command);
+    return $self->roll_skill(get_target($command)) if is_ccb($command);
 
     $command =~ /([1-9][0-9]*)d([1-9][0-9]*)/;
-    my $role_result = {
+    my $roll_result = {
         message => 'input invalid command',
     };
-    return $role_result unless $command;
+    return $roll_result unless $command;
 
     my $times = $1 || 1;
     my $sided_dice = $2 || 100;
@@ -38,31 +38,31 @@ sub role {
         $sum += $rand_num;
     }
 
-    $role_result = {
+    $roll_result = {
         dices => $results,
         sum => $sum,
     };
-    return $role_result;
+    return $roll_result;
 }
 
-sub role_skill {
+sub roll_skill {
     args_pos
         my $self,
         my $target => {isa => 'Maybe[Int]', optional => 1},
     ;
-    my $role = $self->role('1d100');
+    my $ = $self->('1d100');
     if (defined $target) {
-        if (is_extream($role->{dices}->[0], $target)) {
-            $role->{result} = 'extream success';
-        } elsif (is_hard($role->{dices}->[0], $target)) {
-            $role->{result} = 'hard success';
-        } elsif (is_failed($role->{dices}->[0], $target)) {
-            $role->{result} = 'failed';
+        if (is_extream($->{dices}->[0], $target)) {
+            $->{result} = 'extream success';
+        } elsif (is_hard($->{dices}->[0], $target)) {
+            $->{result} = 'hard success';
+        } elsif (is_failed($->{dices}->[0], $target)) {
+            $->{result} = 'failed';
         } else {
-            $role->{result} = 'normal success';
+            $->{result} = 'normal success';
         }
     }
-    return $role;
+    return $;
 }
 
 1;
@@ -72,15 +72,15 @@ __END__
 
 =head1 NAME
 
-Acme::CoC::Dice - Dice role module for CoC TRPG.
+Acme::CoC::Dice - Dice  module for CoC TRPG.
 
 =head1 SYNOPSIS
 
   use Acme::CoC::Dice;
 
-  my $dice_role = Acme::CoC::Dice->role('1d100');
-  print $dice_role->{dices}; # this property can have some result with giving parameter as '2d6'.
-  print $dice_role->{sum};
+  my $dice_ = Acme::CoC::Dice->('1d100');
+  print $dice_->{dices}; # this property can have some result with giving parameter as '2d6'.
+  print $dice_->{sum};
 
 =head1 DESCRIPTION
 
@@ -88,20 +88,20 @@ Acme::CoC::Dice is getting random number like 1d100.
 
 =head1 METHODS
 
-=head2 C<< role >>
+=head2 C<<  >>
 
 Gets random number like dice roling.
 Format is "ndm" ("n" and "m" is Natural number). For example, it's like "1d6".
 
-    my $result = Acme::CoC::Dice->role('1d6');
+    my $result = Acme::CoC::Dice->('1d6');
 
-=head2 C<< role_skill >>
+=head2 C<< _skill >>
 
-Runs "role" with giving "1d100". Usually we can play dice as "1d100" for using skill on CoC-TRPG.
+Runs "" with giving "1d100". Usually we can play dice as "1d100" for using skill on CoC-TRPG.
 This method is for it.
 
-    my $result = Acme::CoC::Dice->role_skill;
-    my $result = Acme::CoC::Dice->role_skill(50); ## 50 is given for success threshold.
+    my $result = Acme::CoC::Dice->_skill;
+    my $result = Acme::CoC::Dice->_skill(50); ## 50 is given for success threshold.
 
 =head1 AUTHOR
 

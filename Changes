@@ -1,7 +1,7 @@
 Revision history for Acme-CoC-Dice
 
 {{$NEXT}}
-
+        - Fixed typo.
 0.03  2021-08-29 21:58:29 JST
         - Added acceptable command like 'ccb [1-9][0-9]*'.
         - Applying Smart::Args.
